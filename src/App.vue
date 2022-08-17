@@ -1,17 +1,24 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    app
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Print, { getImage } from '../lib/index'
+import image from './baidu.png'
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  async created() {
+    console.log(image, '??')
+    const printer = new Print()
+    const img = await getImage(image)
+    console.log(printer, 'print', img)
+    printer.align('ct')
+       .image(img, 's8')
+       .then(() => { 
+          printer.cut()
+       });
   }
 }
 </script>
